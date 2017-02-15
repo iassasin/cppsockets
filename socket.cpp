@@ -109,7 +109,7 @@ int streambuf_socket::overflow(int c){
 #ifdef _DEBUG_
 	LOG << __FUNCTION__ << endl;
 #endif
-	if (_sock->send(c) == sizeof(c)){
+	if (c != EOF && _sock->send((char) c) == sizeof(char)){
 		return c;
 	}
 	return EOF;
