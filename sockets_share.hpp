@@ -1,6 +1,10 @@
 #ifndef SOCKETS_SHARE_HPP
 #define SOCKETS_SHARE_HPP
 
+#ifdef _WIN32
+	#define OS_WIN
+#endif
+
 #ifdef OS_WIN
 	#include <winsock.h>
 #endif
@@ -14,6 +18,7 @@ namespace sockets {
 #ifdef OS_WIN
 	typedef SOCKET socket_t;
 	typedef unsigned int in_addr_t;
+	typedef int socklen_t;
 #else
 	typedef int socket_t;
 	#define SOCKET_ERROR -1

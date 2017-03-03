@@ -27,7 +27,7 @@ size_t socket_tcp::recv(void *data, size_t count){
 	if (valid()){
 		size_t l = 0;
 		while (l < count){
-			int k = ::recv(_socket, (void *)((char *) data + l), count - l, 0);
+			int k = ::recv(_socket, ((char *) data + l), count - l, 0);
 			if (k <= 0){
 				_valid = false;
 				return l;
@@ -43,7 +43,7 @@ size_t socket_tcp::send(const void *data, size_t count){
 	if (valid()){
 		size_t l = 0;
 		while (l < count){
-			int k = ::send(_socket, (const void *)((const char *) data + l), count - l, 0);
+			int k = ::send(_socket, ((const char *) data + l), count - l, 0);
 			if (k <= 0){
 				_valid = false;
 				return l;
@@ -118,7 +118,7 @@ void socket_tcp_server::listen(int cnt){
 			return;
 		}
 
-		int val = 1;
+		char val = 1;
 		if (::setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) == SOCKET_ERROR){
 			close();
 			return;

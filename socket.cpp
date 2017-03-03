@@ -1,5 +1,7 @@
 #include "socket.hpp"
 
+#include <stdio.h>
+
 namespace sockets {
 
 #ifdef OS_WIN
