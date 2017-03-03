@@ -22,6 +22,7 @@ namespace sockets {
 #else
 	typedef int socket_t;
 	#define SOCKET_ERROR -1
+	#define INVALID_SOCKET -1
 #endif
 
 using std::string;

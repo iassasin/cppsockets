@@ -14,7 +14,7 @@ socket_tcp::socket_tcp(socket_t sock, struct sockaddr_in source, struct sockaddr
 }
 
 socket_tcp::socket_tcp(address_ip4 dest){
-	_socket = SOCKET_ERROR;
+	_socket = INVALID_SOCKET;
 	_dest = dest;
 	_valid = false;
 }
@@ -56,13 +56,13 @@ size_t socket_tcp::send(const void *data, size_t count){
 }
 
 bool socket_tcp::valid(){
-	return _source.valid() && _dest.valid() && _socket != SOCKET_ERROR && _valid;
+	return _source.valid() && _dest.valid() && _socket != INVALID_SOCKET && _valid;
 }
 
 void socket_tcp::open(){
 	if (_dest.valid()){
 		_socket = ::socket(AF_INET, SOCK_STREAM, 0);
-		if (_socket == SOCKET_ERROR){
+		if (_socket == INVALID_SOCKET){
 			return;
 		}
 		
@@ -84,7 +84,7 @@ void socket_tcp::open(){
 }
 
 void socket_tcp::close(){
-	if (_socket != SOCKET_ERROR){
+	if (INVALID_SOCKET){
 #ifdef OS_WIN
 		::closesocket(_socket);
 #else
@@ -108,13 +108,13 @@ socket_tcp_server::~socket_tcp_server(){
 }
 
 bool socket_tcp_server::valid(){
-	return _source.valid() && _socket != SOCKET_ERROR && _valid;
+	return _source.valid() && _socket != INVALID_SOCKET && _valid;
 }
 
 void socket_tcp_server::listen(int cnt){
 	if (_source.valid()){
 		_socket = ::socket(AF_INET, SOCK_STREAM, 0);
-		if (_socket == SOCKET_ERROR){
+		if (_socket == INVALID_SOCKET){
 			return;
 		}
 
